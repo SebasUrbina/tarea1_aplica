@@ -1,0 +1,80 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+plot(cars)
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+
+```{r}
+library(ggplot2)
+library(dplyr)
+```
+
+```{r}
+meat_supply <- read.csv("data/meat-supply-per-person.csv", check.names = FALSE)
+gdp_data <- read.csv("data/gdp-per-person.csv")
+population <- read.csv("data/population-by-country.csv")
+population_age <- read.csv("data/median-age-country.csv", check.names = FALSE)
+religion_data <- read.csv("data/religion-by-country.csv")
+urban_pop <- read.csv("data/urban-population.csv",sep = ",",check.names = FALSE, encoding ="UTF-8")
+```
+
+```{r}
+head(meat_supply)
+head(gdp)
+head(population)
+head(population_age)
+head(religion)
+```
+
+```{r}
+#Del dataset population seleccionamos sólo la poblacion 2020
+colnames(meat_supply)[4] <- "Meat_kg_yr"
+meat_pc <- meat_supply %>% select(Entity, Year, Meat_kg_yr) %>% filter(Year == 2017)
+meat_pc <- subset(meat_pc, select = -Year)
+colnames(meat_pc)[2] <- "Meat_kg_2017"
+colnames(meat_pc)[1] <- "Pais"
+
+gdp <- gdp_data %>% select(country, gdpPerCapita, pop)
+
+colnames(population_age)[1] <- "Pais"
+pop_age <- population_age %>% select(Pais, pop2020, MedianAge)
+
+pop <- population %>% select(name,pop2020)
+colnames(pop)[1] <- "Pais"
+colnames(urban_pop)[1] <- "Pais"
+urban_2019 <- urban_pop %>% select(Pais,"2019")
+colnames(urban_2019)[2] <- "urb2019"
+
+colnames(religion_data)[1] <- "Pais"
+
+
+#head(meat_pc)
+#head(gdp)
+#head(pop_age)
+#head(urban_2019)
+#head(pop)
+```
+
+```{r}
+data_partial <- merge(pop_age, meat_pc,by = "Pais", all.x = TRUE)
+data <- merge(data_partial, urban_2019, by = "Pais", all.x = TRUE)
+head(data)
+```
+
+
+
+```
+
