@@ -1796,18 +1796,18 @@ urban_pop &lt;- read.csv(&quot;data/urban-population.csv&quot;,sep = &quot;,&quo
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaGVhZChtZWF0X3N1cHBseSlcbmhlYWQoZ2RwKVxuaGVhZChwb3B1bGF0aW9uKVxuaGVhZChwb3B1bGF0aW9uX2FnZSlcbmhlYWQocmVsaWdpb24pXG5gYGAifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaGVhZChtZWF0X3N1cHBseSlcbmhlYWQoZ2RwKVxuaGVhZChwb3B1bGF0aW9uKVxuaGVhZChwb3B1bGF0aW9uX2FnZSlcbmhlYWQocmVsaWdpb25fZGF0YSlcbmBgYCJ9 -->
 <pre class="r"><code>head(meat_supply)
 head(gdp)
 head(population)
 head(population_age)
-head(religion)</code></pre>
+head(religion_data)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI0RlbCBkYXRhc2V0IHBvcHVsYXRpb24gc2VsZWNjaW9uYW1vcyBzw7NsbyBsYSBwb2JsYWNpb24gMjAyMFxuY29sbmFtZXMobWVhdF9zdXBwbHkpWzRdIDwtIFwiTWVhdF9rZ195clwiXG5tZWF0X3BjIDwtIG1lYXRfc3VwcGx5ICU+JSBzZWxlY3QoRW50aXR5LCBZZWFyLCBNZWF0X2tnX3lyKSAlPiUgZmlsdGVyKFllYXIgPT0gMjAxNylcbm1lYXRfcGMgPC0gc3Vic2V0KG1lYXRfcGMsIHNlbGVjdCA9IC1ZZWFyKVxuY29sbmFtZXMobWVhdF9wYylbMl0gPC0gXCJNZWF0X2tnXzIwMTdcIlxuY29sbmFtZXMobWVhdF9wYylbMV0gPC0gXCJQYWlzXCJcblxuZ2RwIDwtIGdkcF9kYXRhICU+JSBzZWxlY3QoY291bnRyeSwgZ2RwUGVyQ2FwaXRhLCBwb3ApXG5cbmNvbG5hbWVzKHBvcHVsYXRpb25fYWdlKVsxXSA8LSBcIlBhaXNcIlxucG9wX2FnZSA8LSBwb3B1bGF0aW9uX2FnZSAlPiUgc2VsZWN0KFBhaXMsIHBvcDIwMjAsIE1lZGlhbkFnZSlcblxucG9wIDwtIHBvcHVsYXRpb24gJT4lIHNlbGVjdChuYW1lLHBvcDIwMjApXG5jb2xuYW1lcyhwb3ApWzFdIDwtIFwiUGFpc1wiXG5jb2xuYW1lcyh1cmJhbl9wb3ApWzFdIDwtIFwiUGFpc1wiXG51cmJhbl8yMDE5IDwtIHVyYmFuX3BvcCAlPiUgc2VsZWN0KFBhaXMsXCIyMDE5XCIpXG5jb2xuYW1lcyh1cmJhbl8yMDE5KVsyXSA8LSBcInVyYjIwMTlcIlxuXG5jb2xuYW1lcyhyZWxpZ2lvbl9kYXRhKVsxXSA8LSBcIlBhaXNcIlxuXG5cbiNoZWFkKG1lYXRfcGMpXG4jaGVhZChnZHApXG4jaGVhZChwb3BfYWdlKVxuI2hlYWQodXJiYW5fMjAxOSlcbiNoZWFkKHBvcClcbmBgYCJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI0RlbCBkYXRhc2V0IHBvcHVsYXRpb24gc2VsZWNjaW9uYW1vcyBzw7NsbyBsYSBwb2JsYWNpb24gMjAyMFxuY29sbmFtZXMobWVhdF9zdXBwbHkpWzRdIDwtIFwiTWVhdF9rZ195clwiXG5tZWF0X3BjIDwtIG1lYXRfc3VwcGx5ICU+JSBzZWxlY3QoRW50aXR5LCBZZWFyLCBNZWF0X2tnX3lyKSAlPiUgZmlsdGVyKFllYXIgPT0gMjAxNylcbm1lYXRfcGMgPC0gc3Vic2V0KG1lYXRfcGMsIHNlbGVjdCA9IC1ZZWFyKVxuY29sbmFtZXMobWVhdF9wYylbMl0gPC0gXCJNZWF0X2tnXzIwMTdcIlxuY29sbmFtZXMobWVhdF9wYylbMV0gPC0gXCJQYWlzXCJcblxuZ2RwIDwtIGdkcF9kYXRhICU+JSBzZWxlY3QoY291bnRyeSwgZ2RwUGVyQ2FwaXRhLCBwb3ApXG5jb2xuYW1lcyhnZHApWzFdIDwtIFwiUGFpc1wiXG5cbmNvbG5hbWVzKHBvcHVsYXRpb25fYWdlKVsxXSA8LSBcIlBhaXNcIlxucG9wX2FnZSA8LSBwb3B1bGF0aW9uX2FnZSAlPiUgc2VsZWN0KFBhaXMsIHBvcDIwMjAsIE1lZGlhbkFnZSlcblxucG9wIDwtIHBvcHVsYXRpb24gJT4lIHNlbGVjdChuYW1lLHBvcDIwMjApXG5jb2xuYW1lcyhwb3ApWzFdIDwtIFwiUGFpc1wiXG5jb2xuYW1lcyh1cmJhbl9wb3ApWzFdIDwtIFwiUGFpc1wiXG51cmJhbl8yMDE5IDwtIHVyYmFuX3BvcCAlPiUgc2VsZWN0KFBhaXMsXCIyMDE5XCIpXG5jb2xuYW1lcyh1cmJhbl8yMDE5KVsyXSA8LSBcInVyYjIwMTlcIlxuXG5jb2xuYW1lcyhyZWxpZ2lvbl9kYXRhKVsxXSA8LSBcIlBhaXNcIlxuXG4jQ2hyaXN0aWFucyBieSAxMDAuMDAwIGhhYml0YW50c1xuXG5yZWxpZ2lvbl9kYXRhJGNocmlzdGlhbnNfMTAwIDwtIHJlbGlnaW9uX2RhdGEkY2hpc3RpYW5zLzEwMDAwMFxuY2hyaXN0aWFuc18xMDAgPC0gcmVsaWdpb25fZGF0YSAlPiUgc2VsZWN0KFBhaXMsIGNocmlzdGlhbnNfMTAwKVxuXG4jaGVhZChtZWF0X3BjKVxuI2hlYWQoZ2RwKVxuI2hlYWQocG9wX2FnZSlcbiNoZWFkKHVyYmFuXzIwMTkpXG4jaGVhZChwb3ApXG5gYGAifQ== -->
 <pre class="r"><code>#Del dataset population seleccionamos sólo la poblacion 2020
 colnames(meat_supply)[4] &lt;- &quot;Meat_kg_yr&quot;
 meat_pc &lt;- meat_supply %&gt;% select(Entity, Year, Meat_kg_yr) %&gt;% filter(Year == 2017)
@@ -1816,6 +1816,7 @@ colnames(meat_pc)[2] &lt;- &quot;Meat_kg_2017&quot;
 colnames(meat_pc)[1] &lt;- &quot;Pais&quot;
 
 gdp &lt;- gdp_data %&gt;% select(country, gdpPerCapita, pop)
+colnames(gdp)[1] &lt;- &quot;Pais&quot;
 
 colnames(population_age)[1] &lt;- &quot;Pais&quot;
 pop_age &lt;- population_age %&gt;% select(Pais, pop2020, MedianAge)
@@ -1828,6 +1829,10 @@ colnames(urban_2019)[2] &lt;- &quot;urb2019&quot;
 
 colnames(religion_data)[1] &lt;- &quot;Pais&quot;
 
+#Christians by 100.000 habitants
+
+religion_data$christians_100 &lt;- religion_data$chistians/100000
+christians_100 &lt;- religion_data %&gt;% select(Pais, christians_100)
 
 #head(meat_pc)
 #head(gdp)
@@ -1839,17 +1844,96 @@ colnames(religion_data)[1] &lt;- &quot;Pais&quot;
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGF0YV9wYXJ0aWFsIDwtIG1lcmdlKHBvcF9hZ2UsIG1lYXRfcGMsYnkgPSBcIlBhaXNcIiwgYWxsLnggPSBUUlVFKVxuZGF0YSA8LSBtZXJnZShkYXRhX3BhcnRpYWwsIHVyYmFuXzIwMTksIGJ5ID0gXCJQYWlzXCIsIGFsbC54ID0gVFJVRSlcbmhlYWQoZGF0YSlcbmBgYCJ9 -->
-<pre class="r"><code>data_partial &lt;- merge(pop_age, meat_pc,by = &quot;Pais&quot;, all.x = TRUE)
-data &lt;- merge(data_partial, urban_2019, by = &quot;Pais&quot;, all.x = TRUE)
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGF0YV8xIDwtIG1lcmdlKHBvcF9hZ2UsIG1lYXRfcGMsYnkgPSBcIlBhaXNcIiwgYWxsLnggPSBUUlVFKVxuZGF0YV8yIDwtIG1lcmdlKGRhdGFfMSwgdXJiYW5fMjAxOSwgYnkgPSBcIlBhaXNcIiwgYWxsLnggPSBUUlVFKVxuZGF0YV8zIDwtIG1lcmdlKGRhdGFfMiwgZ2RwLCBieSA9IFwiUGFpc1wiLCBhbGwueCA9IFRSVUUpXG5kYXRhIDwtIG1lcmdlKGRhdGFfMywgcmVsaWdpb25fZGF0YSwgYnkgPSBcIlBhaXNcIiwgYWxsLnggPSBUUlVFKVxuaGVhZChkYXRhKVxuYGBgIn0= -->
+<pre class="r"><code>data_1 &lt;- merge(pop_age, meat_pc,by = &quot;Pais&quot;, all.x = TRUE)
+data_2 &lt;- merge(data_1, urban_2019, by = &quot;Pais&quot;, all.x = TRUE)
+data_3 &lt;- merge(data_2, gdp, by = &quot;Pais&quot;, all.x = TRUE)
+data &lt;- merge(data_3, religion_data, by = &quot;Pais&quot;, all.x = TRUE)
 head(data)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>```</p>
+<p>EDA:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShnZ3Bsb3QyKVxuXG5cbnAxIDwtIGRhdGEgJT4lIGdncGxvdChhZXMoeCA9IE1lYXRfa2dfMjAxNyAsIHkgPSBjaHJpc3RpYW5zXzEwMCApKSArIFxuICBnZW9tX3BvaW50KGNvbG9yPVwicmVkXCIpICsgXG4gIGxhYnModGl0bGU9XCJDb25zdW1vIGRlIGNhcm5lIHZzIENyaXN0aWFub3MgY2FkYSAxMDBtaWwgaGFiaXRhbnRlc1wiLCB4ID0gXCJDb25zdW1vIGRlIGNhcm5lIHBlciBjw6FwaXRhXCIsIHk9XCJDcmlzdGlhbm9zIGNhZGEgMTAwbWlsIGhhYlwiKSsgdGhlbWVfYncoKVxucDFcbmBgYCJ9 -->
+<pre class="r"><code>library(ggplot2)
+
+
+p1 &lt;- data %&gt;% ggplot(aes(x = Meat_kg_2017 , y = christians_100 )) + 
+  geom_point(color=&quot;red&quot;) + 
+  labs(title=&quot;Consumo de carne vs Cristianos cada 100mil habitantes&quot;, x = &quot;Consumo de carne per cápita&quot;, y=&quot;Cristianos cada 100mil hab&quot;)+ theme_bw()
+p1</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucDIgPC0gZGF0YSAlPiUgZ2dwbG90KGFlcyh4ID0gTWVhdF9rZ18yMDE3ICwgeSA9IGxvZyhwb3AyMDIwLngpICkpICsgXG4gIGdlb21fcG9pbnQoY29sb3I9XCJyZWRcIikgKyBcbiAgbGFicyh0aXRsZT1cIkNvbnN1bW8gZGUgY2FybmUgdnMgbG9nKFBvYmxhY2nDs24pXCIsIHggPSBcIkNvbnN1bW8gZGUgY2FybmUgcGVyIGPDoXBpdGFcIiwgeT1cImxvZyhQb2JsYWNpw7NuKVwiKSArIFxuICB0aGVtZV9idygpXG5wMlxuYGBgIn0= -->
+<pre class="r"><code>p2 &lt;- data %&gt;% ggplot(aes(x = Meat_kg_2017 , y = log(pop2020.x) )) + 
+  geom_point(color=&quot;red&quot;) + 
+  labs(title=&quot;Consumo de carne vs log(Población)&quot;, x = &quot;Consumo de carne per cápita&quot;, y=&quot;log(Población)&quot;) + 
+  theme_bw()
+p2</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucDMgPC0gZGF0YSAlPiUgZ2dwbG90KGFlcyh4ID0gTWVhdF9rZ18yMDE3ICwgeSA9IE1lZGlhbkFnZSApKSArIFxuICBnZW9tX3BvaW50KGNvbG9yPVwicmVkXCIpICsgXG4gIGxhYnModGl0bGU9XCJDb25zdW1vIGRlIGNhcm5lIHZzIEVkYWQgbWVkaWEgcG9ibGFjacOzblwiLCB4ID0gXCJDb25zdW1vIGRlIGNhcm5lIHBlciBjw6FwaXRhXCIsIHk9XCJFZGFkIG1lZGlhIHBvYmxhY2nDs25cIikrIFxuICB0aGVtZV9idygpXG5wM1xuYGBgIn0= -->
+<pre class="r"><code>p3 &lt;- data %&gt;% ggplot(aes(x = Meat_kg_2017 , y = MedianAge )) + 
+  geom_point(color=&quot;red&quot;) + 
+  labs(title=&quot;Consumo de carne vs Edad media población&quot;, x = &quot;Consumo de carne per cápita&quot;, y=&quot;Edad media población&quot;)+ 
+  theme_bw()
+p3</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucDQgPC0gZGF0YSAlPiUgZ2dwbG90KGFlcyh4ID0gTWVhdF9rZ18yMDE3ICwgeSA9IHVyYjIwMTkgKSkgKyBcbiAgZ2VvbV9wb2ludChjb2xvcj1cInJlZFwiKSArIFxuICBsYWJzKHRpdGxlPVwiQ29uc3VtbyBkZSBjYXJuZSB2cyAlIFVyYmFuaXphY2nDs25cIiwgeCA9IFwiQ29uc3VtbyBkZSBjYXJuZSBwZXIgY8OhcGl0YVwiLCB5PVwiJSBVcmJhbml6YWNpw7NuXCIpICsgXG4gIHRoZW1lX2J3KClcbnA0XG5gYGAifQ== -->
+<pre class="r"><code>p4 &lt;- data %&gt;% ggplot(aes(x = Meat_kg_2017 , y = urb2019 )) + 
+  geom_point(color=&quot;red&quot;) + 
+  labs(title=&quot;Consumo de carne vs % Urbanización&quot;, x = &quot;Consumo de carne per cápita&quot;, y=&quot;% Urbanización&quot;) + 
+  theme_bw()
+p4</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucDUgPC0gZGF0YSAlPiUgZ2dwbG90KGFlcyh4ID0gTWVhdF9rZ18yMDE3ICwgeSA9IGdkcFBlckNhcGl0YSApKSArIFxuICBnZW9tX3BvaW50KGNvbG9yPVwicmVkXCIpICsgXG4gIGxhYnModGl0bGU9XCJDb25zdW1vIGRlIGNhcm5lIHZzIFBJQiBwZXIgY8OhcGl0YVwiLCB4ID0gXCJDb25zdW1vIGRlIGNhcm5lIHBlciBjw6FwaXRhXCIsIHk9XCJQSUIgcGVyIGPDoXBpdGFcIikgKyBcbiAgdGhlbWVfYncoKVxucDVcbmBgYCJ9 -->
+<pre class="r"><code>p5 &lt;- data %&gt;% ggplot(aes(x = Meat_kg_2017 , y = gdpPerCapita )) + 
+  geom_point(color=&quot;red&quot;) + 
+  labs(title=&quot;Consumo de carne vs PIB per cápita&quot;, x = &quot;Consumo de carne per cápita&quot;, y=&quot;PIB per cápita&quot;) + 
+  theme_bw()
+p5</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2dwbG90KG5hLm9taXQoZGF0YSksIGFlcyh4ID0gTWVhdF9rZ18yMDE3ICwgeSA9IHJlb3JkZXIoUGFpcywgTWVhdF9rZ18yMDE3KSkpICsgXG4gIGdlb21fYmFyKHN0YXQgPSBcImlkZW50aXR5XCIpICsgXG4gIGxhYnModGl0bGU9XCJQYWlzIHZzIGNvbnN1bW8gZGUgY2FybmUgcGVyIGPDoXBpdGEgYWwgYcOxbyAyMDE3XCIsIHggPSBcIkNvbnN1bW8gZGUgY2FybmUgcGVyIGPDoXBpdGEgYWwgYcOxbyAyMDE3XCIsIHk9XCJQYcOtc1wiKSArIFxuICB0aGVtZV9idygpICBcbiAgIytjb29yZF9jYXJ0ZXNpYW4oeGxpbSA9IGMoMCwgMTAwKSwgeWxpbSA9IGMoMTAsIDIwKSlcblxuYGBgIn0= -->
+<pre class="r"><code>ggplot(na.omit(data), aes(x = Meat_kg_2017 , y = reorder(Pais, Meat_kg_2017))) + 
+  geom_bar(stat = &quot;identity&quot;) + 
+  labs(title=&quot;Pais vs consumo de carne per cápita al año 2017&quot;, x = &quot;Consumo de carne per cápita al año 2017&quot;, y=&quot;País&quot;) + 
+  theme_bw()  
+  #+coord_cartesian(xlim = c(0, 100), ylim = c(10, 20))
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2dwbG90KG5hLm9taXQoZGF0YSksIGFlcyh4ID0gUGFpcyAsIHkgPSBNZWF0X2tnXzIwMTcpKSArIFxuICBnZW9tX2JveHBsb3QoKSArIFxuICBsYWJzKHRpdGxlPVwiUGFpcyB2cyBjb25zdW1vIGRlIGNhcm5lIHBlciBjw6FwaXRhIGFsIGHDsW8gMjAxN1wiLCB4ID0gXCJDb25zdW1vIGRlIGNhcm5lIHBlciBjw6FwaXRhIGFsIGHDsW8gMjAxN1wiLCB5PVwiUGHDrXNcIikgKyBcbiAgdGhlbWVfYncoKSAgXG4gICMrY29vcmRfY2FydGVzaWFuKHhsaW0gPSBjKDAsIDEwMCksIHlsaW0gPSBjKDEwLCAyMCkpXG5cbmBgYCJ9 -->
+<pre class="r"><code>ggplot(na.omit(data), aes(x = Pais , y = Meat_kg_2017)) + 
+  geom_boxplot() + 
+  labs(title=&quot;Pais vs consumo de carne per cápita al año 2017&quot;, x = &quot;Consumo de carne per cápita al año 2017&quot;, y=&quot;País&quot;) + 
+  theme_bw()  
+  #+coord_cartesian(xlim = c(0, 100), ylim = c(10, 20))
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQpUaGlzIGlzIGFuIFtSIE1hcmtkb3duXShodHRwOi8vcm1hcmtkb3duLnJzdHVkaW8uY29tKSBOb3RlYm9vay4gV2hlbiB5b3UgZXhlY3V0ZSBjb2RlIHdpdGhpbiB0aGUgbm90ZWJvb2ssIHRoZSByZXN1bHRzIGFwcGVhciBiZW5lYXRoIHRoZSBjb2RlLiANCg0KVHJ5IGV4ZWN1dGluZyB0aGlzIGNodW5rIGJ5IGNsaWNraW5nIHRoZSAqUnVuKiBidXR0b24gd2l0aGluIHRoZSBjaHVuayBvciBieSBwbGFjaW5nIHlvdXIgY3Vyc29yIGluc2lkZSBpdCBhbmQgcHJlc3NpbmcgKkN0cmwrU2hpZnQrRW50ZXIqLiANCg0KYGBge3J9DQpwbG90KGNhcnMpDQpgYGANCg0KQWRkIGEgbmV3IGNodW5rIGJ5IGNsaWNraW5nIHRoZSAqSW5zZXJ0IENodW5rKiBidXR0b24gb24gdGhlIHRvb2xiYXIgb3IgYnkgcHJlc3NpbmcgKkN0cmwrQWx0K0kqLg0KDQpXaGVuIHlvdSBzYXZlIHRoZSBub3RlYm9vaywgYW4gSFRNTCBmaWxlIGNvbnRhaW5pbmcgdGhlIGNvZGUgYW5kIG91dHB1dCB3aWxsIGJlIHNhdmVkIGFsb25nc2lkZSBpdCAoY2xpY2sgdGhlICpQcmV2aWV3KiBidXR0b24gb3IgcHJlc3MgKkN0cmwrU2hpZnQrSyogdG8gcHJldmlldyB0aGUgSFRNTCBmaWxlKS4NCg0KVGhlIHByZXZpZXcgc2hvd3MgeW91IGEgcmVuZGVyZWQgSFRNTCBjb3B5IG9mIHRoZSBjb250ZW50cyBvZiB0aGUgZWRpdG9yLiBDb25zZXF1ZW50bHksIHVubGlrZSAqS25pdCosICpQcmV2aWV3KiBkb2VzIG5vdCBydW4gYW55IFIgY29kZSBjaHVua3MuIEluc3RlYWQsIHRoZSBvdXRwdXQgb2YgdGhlIGNodW5rIHdoZW4gaXQgd2FzIGxhc3QgcnVuIGluIHRoZSBlZGl0b3IgaXMgZGlzcGxheWVkLg0KDQpgYGB7cn0NCmxpYnJhcnkoZ2dwbG90MikNCmxpYnJhcnkoZHBseXIpDQpgYGANCg0KYGBge3J9DQptZWF0X3N1cHBseSA8LSByZWFkLmNzdigiZGF0YS9tZWF0LXN1cHBseS1wZXItcGVyc29uLmNzdiIsIGNoZWNrLm5hbWVzID0gRkFMU0UpDQpnZHBfZGF0YSA8LSByZWFkLmNzdigiZGF0YS9nZHAtcGVyLXBlcnNvbi5jc3YiKQ0KcG9wdWxhdGlvbiA8LSByZWFkLmNzdigiZGF0YS9wb3B1bGF0aW9uLWJ5LWNvdW50cnkuY3N2IikNCnBvcHVsYXRpb25fYWdlIDwtIHJlYWQuY3N2KCJkYXRhL21lZGlhbi1hZ2UtY291bnRyeS5jc3YiLCBjaGVjay5uYW1lcyA9IEZBTFNFKQ0KcmVsaWdpb25fZGF0YSA8LSByZWFkLmNzdigiZGF0YS9yZWxpZ2lvbi1ieS1jb3VudHJ5LmNzdiIpDQp1cmJhbl9wb3AgPC0gcmVhZC5jc3YoImRhdGEvdXJiYW4tcG9wdWxhdGlvbi5jc3YiLHNlcCA9ICIsIixjaGVjay5uYW1lcyA9IEZBTFNFLCBlbmNvZGluZyA9IlVURi04IikNCmBgYA0KDQpgYGB7cn0NCmhlYWQobWVhdF9zdXBwbHkpDQpoZWFkKGdkcCkNCmhlYWQocG9wdWxhdGlvbikNCmhlYWQocG9wdWxhdGlvbl9hZ2UpDQpoZWFkKHJlbGlnaW9uKQ0KYGBgDQoNCmBgYHtyfQ0KI0RlbCBkYXRhc2V0IHBvcHVsYXRpb24gc2VsZWNjaW9uYW1vcyBzw7NsbyBsYSBwb2JsYWNpb24gMjAyMA0KY29sbmFtZXMobWVhdF9zdXBwbHkpWzRdIDwtICJNZWF0X2tnX3lyIg0KbWVhdF9wYyA8LSBtZWF0X3N1cHBseSAlPiUgc2VsZWN0KEVudGl0eSwgWWVhciwgTWVhdF9rZ195cikgJT4lIGZpbHRlcihZZWFyID09IDIwMTcpDQptZWF0X3BjIDwtIHN1YnNldChtZWF0X3BjLCBzZWxlY3QgPSAtWWVhcikNCmNvbG5hbWVzKG1lYXRfcGMpWzJdIDwtICJNZWF0X2tnXzIwMTciDQpjb2xuYW1lcyhtZWF0X3BjKVsxXSA8LSAiUGFpcyINCg0KZ2RwIDwtIGdkcF9kYXRhICU+JSBzZWxlY3QoY291bnRyeSwgZ2RwUGVyQ2FwaXRhLCBwb3ApDQoNCmNvbG5hbWVzKHBvcHVsYXRpb25fYWdlKVsxXSA8LSAiUGFpcyINCnBvcF9hZ2UgPC0gcG9wdWxhdGlvbl9hZ2UgJT4lIHNlbGVjdChQYWlzLCBwb3AyMDIwLCBNZWRpYW5BZ2UpDQoNCnBvcCA8LSBwb3B1bGF0aW9uICU+JSBzZWxlY3QobmFtZSxwb3AyMDIwKQ0KY29sbmFtZXMocG9wKVsxXSA8LSAiUGFpcyINCmNvbG5hbWVzKHVyYmFuX3BvcClbMV0gPC0gIlBhaXMiDQp1cmJhbl8yMDE5IDwtIHVyYmFuX3BvcCAlPiUgc2VsZWN0KFBhaXMsIjIwMTkiKQ0KY29sbmFtZXModXJiYW5fMjAxOSlbMl0gPC0gInVyYjIwMTkiDQoNCmNvbG5hbWVzKHJlbGlnaW9uX2RhdGEpWzFdIDwtICJQYWlzIg0KDQoNCiNoZWFkKG1lYXRfcGMpDQojaGVhZChnZHApDQojaGVhZChwb3BfYWdlKQ0KI2hlYWQodXJiYW5fMjAxOSkNCiNoZWFkKHBvcCkNCmBgYA0KDQpgYGB7cn0NCmRhdGFfcGFydGlhbCA8LSBtZXJnZShwb3BfYWdlLCBtZWF0X3BjLGJ5ID0gIlBhaXMiLCBhbGwueCA9IFRSVUUpDQpkYXRhIDwtIG1lcmdlKGRhdGFfcGFydGlhbCwgdXJiYW5fMjAxOSwgYnkgPSAiUGFpcyIsIGFsbC54ID0gVFJVRSkNCmhlYWQoZGF0YSkNCmBgYA0KDQoNCg0KYGBgDQoNCg==</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQpUaGlzIGlzIGFuIFtSIE1hcmtkb3duXShodHRwOi8vcm1hcmtkb3duLnJzdHVkaW8uY29tKSBOb3RlYm9vay4gV2hlbiB5b3UgZXhlY3V0ZSBjb2RlIHdpdGhpbiB0aGUgbm90ZWJvb2ssIHRoZSByZXN1bHRzIGFwcGVhciBiZW5lYXRoIHRoZSBjb2RlLiANCg0KVHJ5IGV4ZWN1dGluZyB0aGlzIGNodW5rIGJ5IGNsaWNraW5nIHRoZSAqUnVuKiBidXR0b24gd2l0aGluIHRoZSBjaHVuayBvciBieSBwbGFjaW5nIHlvdXIgY3Vyc29yIGluc2lkZSBpdCBhbmQgcHJlc3NpbmcgKkN0cmwrU2hpZnQrRW50ZXIqLiANCg0KYGBge3J9DQpwbG90KGNhcnMpDQpgYGANCg0KQWRkIGEgbmV3IGNodW5rIGJ5IGNsaWNraW5nIHRoZSAqSW5zZXJ0IENodW5rKiBidXR0b24gb24gdGhlIHRvb2xiYXIgb3IgYnkgcHJlc3NpbmcgKkN0cmwrQWx0K0kqLg0KDQpXaGVuIHlvdSBzYXZlIHRoZSBub3RlYm9vaywgYW4gSFRNTCBmaWxlIGNvbnRhaW5pbmcgdGhlIGNvZGUgYW5kIG91dHB1dCB3aWxsIGJlIHNhdmVkIGFsb25nc2lkZSBpdCAoY2xpY2sgdGhlICpQcmV2aWV3KiBidXR0b24gb3IgcHJlc3MgKkN0cmwrU2hpZnQrSyogdG8gcHJldmlldyB0aGUgSFRNTCBmaWxlKS4NCg0KVGhlIHByZXZpZXcgc2hvd3MgeW91IGEgcmVuZGVyZWQgSFRNTCBjb3B5IG9mIHRoZSBjb250ZW50cyBvZiB0aGUgZWRpdG9yLiBDb25zZXF1ZW50bHksIHVubGlrZSAqS25pdCosICpQcmV2aWV3KiBkb2VzIG5vdCBydW4gYW55IFIgY29kZSBjaHVua3MuIEluc3RlYWQsIHRoZSBvdXRwdXQgb2YgdGhlIGNodW5rIHdoZW4gaXQgd2FzIGxhc3QgcnVuIGluIHRoZSBlZGl0b3IgaXMgZGlzcGxheWVkLg0KDQpgYGB7cn0NCmxpYnJhcnkoZ2dwbG90MikNCmxpYnJhcnkoZHBseXIpDQpgYGANCg0KYGBge3J9DQptZWF0X3N1cHBseSA8LSByZWFkLmNzdigiZGF0YS9tZWF0LXN1cHBseS1wZXItcGVyc29uLmNzdiIsIGNoZWNrLm5hbWVzID0gRkFMU0UpDQpnZHBfZGF0YSA8LSByZWFkLmNzdigiZGF0YS9nZHAtcGVyLXBlcnNvbi5jc3YiKQ0KcG9wdWxhdGlvbiA8LSByZWFkLmNzdigiZGF0YS9wb3B1bGF0aW9uLWJ5LWNvdW50cnkuY3N2IikNCnBvcHVsYXRpb25fYWdlIDwtIHJlYWQuY3N2KCJkYXRhL21lZGlhbi1hZ2UtY291bnRyeS5jc3YiLCBjaGVjay5uYW1lcyA9IEZBTFNFKQ0KcmVsaWdpb25fZGF0YSA8LSByZWFkLmNzdigiZGF0YS9yZWxpZ2lvbi1ieS1jb3VudHJ5LmNzdiIpDQp1cmJhbl9wb3AgPC0gcmVhZC5jc3YoImRhdGEvdXJiYW4tcG9wdWxhdGlvbi5jc3YiLHNlcCA9ICIsIixjaGVjay5uYW1lcyA9IEZBTFNFLCBlbmNvZGluZyA9IlVURi04IikNCmBgYA0KDQpgYGB7cn0NCmhlYWQobWVhdF9zdXBwbHkpDQpoZWFkKGdkcCkNCmhlYWQocG9wdWxhdGlvbikNCmhlYWQocG9wdWxhdGlvbl9hZ2UpDQpoZWFkKHJlbGlnaW9uX2RhdGEpDQpgYGANCg0KYGBge3J9DQojRGVsIGRhdGFzZXQgcG9wdWxhdGlvbiBzZWxlY2Npb25hbW9zIHPDs2xvIGxhIHBvYmxhY2lvbiAyMDIwDQpjb2xuYW1lcyhtZWF0X3N1cHBseSlbNF0gPC0gIk1lYXRfa2dfeXIiDQptZWF0X3BjIDwtIG1lYXRfc3VwcGx5ICU+JSBzZWxlY3QoRW50aXR5LCBZZWFyLCBNZWF0X2tnX3lyKSAlPiUgZmlsdGVyKFllYXIgPT0gMjAxNykNCm1lYXRfcGMgPC0gc3Vic2V0KG1lYXRfcGMsIHNlbGVjdCA9IC1ZZWFyKQ0KY29sbmFtZXMobWVhdF9wYylbMl0gPC0gIk1lYXRfa2dfMjAxNyINCmNvbG5hbWVzKG1lYXRfcGMpWzFdIDwtICJQYWlzIg0KDQpnZHAgPC0gZ2RwX2RhdGEgJT4lIHNlbGVjdChjb3VudHJ5LCBnZHBQZXJDYXBpdGEsIHBvcCkNCmNvbG5hbWVzKGdkcClbMV0gPC0gIlBhaXMiDQoNCmNvbG5hbWVzKHBvcHVsYXRpb25fYWdlKVsxXSA8LSAiUGFpcyINCnBvcF9hZ2UgPC0gcG9wdWxhdGlvbl9hZ2UgJT4lIHNlbGVjdChQYWlzLCBwb3AyMDIwLCBNZWRpYW5BZ2UpDQoNCnBvcCA8LSBwb3B1bGF0aW9uICU+JSBzZWxlY3QobmFtZSxwb3AyMDIwKQ0KY29sbmFtZXMocG9wKVsxXSA8LSAiUGFpcyINCmNvbG5hbWVzKHVyYmFuX3BvcClbMV0gPC0gIlBhaXMiDQp1cmJhbl8yMDE5IDwtIHVyYmFuX3BvcCAlPiUgc2VsZWN0KFBhaXMsIjIwMTkiKQ0KY29sbmFtZXModXJiYW5fMjAxOSlbMl0gPC0gInVyYjIwMTkiDQoNCmNvbG5hbWVzKHJlbGlnaW9uX2RhdGEpWzFdIDwtICJQYWlzIg0KDQojQ2hyaXN0aWFucyBieSAxMDAuMDAwIGhhYml0YW50cw0KDQpyZWxpZ2lvbl9kYXRhJGNocmlzdGlhbnNfMTAwIDwtIHJlbGlnaW9uX2RhdGEkY2hpc3RpYW5zLzEwMDAwMA0KY2hyaXN0aWFuc18xMDAgPC0gcmVsaWdpb25fZGF0YSAlPiUgc2VsZWN0KFBhaXMsIGNocmlzdGlhbnNfMTAwKQ0KDQojaGVhZChtZWF0X3BjKQ0KI2hlYWQoZ2RwKQ0KI2hlYWQocG9wX2FnZSkNCiNoZWFkKHVyYmFuXzIwMTkpDQojaGVhZChwb3ApDQpgYGANCg0KYGBge3J9DQpkYXRhXzEgPC0gbWVyZ2UocG9wX2FnZSwgbWVhdF9wYyxieSA9ICJQYWlzIiwgYWxsLnggPSBUUlVFKQ0KZGF0YV8yIDwtIG1lcmdlKGRhdGFfMSwgdXJiYW5fMjAxOSwgYnkgPSAiUGFpcyIsIGFsbC54ID0gVFJVRSkNCmRhdGFfMyA8LSBtZXJnZShkYXRhXzIsIGdkcCwgYnkgPSAiUGFpcyIsIGFsbC54ID0gVFJVRSkNCmRhdGEgPC0gbWVyZ2UoZGF0YV8zLCByZWxpZ2lvbl9kYXRhLCBieSA9ICJQYWlzIiwgYWxsLnggPSBUUlVFKQ0KaGVhZChkYXRhKQ0KYGBgDQoNCg0KRURBOg0KYGBge3J9DQpsaWJyYXJ5KGdncGxvdDIpDQoNCg0KcDEgPC0gZGF0YSAlPiUgZ2dwbG90KGFlcyh4ID0gTWVhdF9rZ18yMDE3ICwgeSA9IGNocmlzdGlhbnNfMTAwICkpICsgDQogIGdlb21fcG9pbnQoY29sb3I9InJlZCIpICsgDQogIGxhYnModGl0bGU9IkNvbnN1bW8gZGUgY2FybmUgdnMgQ3Jpc3RpYW5vcyBjYWRhIDEwMG1pbCBoYWJpdGFudGVzIiwgeCA9ICJDb25zdW1vIGRlIGNhcm5lIHBlciBjw6FwaXRhIiwgeT0iQ3Jpc3RpYW5vcyBjYWRhIDEwMG1pbCBoYWIiKSsgdGhlbWVfYncoKQ0KcDENCmBgYA0KDQpgYGB7cn0NCnAyIDwtIGRhdGEgJT4lIGdncGxvdChhZXMoeCA9IE1lYXRfa2dfMjAxNyAsIHkgPSBsb2cocG9wMjAyMC54KSApKSArIA0KICBnZW9tX3BvaW50KGNvbG9yPSJyZWQiKSArIA0KICBsYWJzKHRpdGxlPSJDb25zdW1vIGRlIGNhcm5lIHZzIGxvZyhQb2JsYWNpw7NuKSIsIHggPSAiQ29uc3VtbyBkZSBjYXJuZSBwZXIgY8OhcGl0YSIsIHk9ImxvZyhQb2JsYWNpw7NuKSIpICsgDQogIHRoZW1lX2J3KCkNCnAyDQpgYGANCg0KYGBge3J9DQpwMyA8LSBkYXRhICU+JSBnZ3Bsb3QoYWVzKHggPSBNZWF0X2tnXzIwMTcgLCB5ID0gTWVkaWFuQWdlICkpICsgDQogIGdlb21fcG9pbnQoY29sb3I9InJlZCIpICsgDQogIGxhYnModGl0bGU9IkNvbnN1bW8gZGUgY2FybmUgdnMgRWRhZCBtZWRpYSBwb2JsYWNpw7NuIiwgeCA9ICJDb25zdW1vIGRlIGNhcm5lIHBlciBjw6FwaXRhIiwgeT0iRWRhZCBtZWRpYSBwb2JsYWNpw7NuIikrIA0KICB0aGVtZV9idygpDQpwMw0KYGBgDQpgYGB7cn0NCnA0IDwtIGRhdGEgJT4lIGdncGxvdChhZXMoeCA9IE1lYXRfa2dfMjAxNyAsIHkgPSB1cmIyMDE5ICkpICsgDQogIGdlb21fcG9pbnQoY29sb3I9InJlZCIpICsgDQogIGxhYnModGl0bGU9IkNvbnN1bW8gZGUgY2FybmUgdnMgJSBVcmJhbml6YWNpw7NuIiwgeCA9ICJDb25zdW1vIGRlIGNhcm5lIHBlciBjw6FwaXRhIiwgeT0iJSBVcmJhbml6YWNpw7NuIikgKyANCiAgdGhlbWVfYncoKQ0KcDQNCmBgYA0KYGBge3J9DQpwNSA8LSBkYXRhICU+JSBnZ3Bsb3QoYWVzKHggPSBNZWF0X2tnXzIwMTcgLCB5ID0gZ2RwUGVyQ2FwaXRhICkpICsgDQogIGdlb21fcG9pbnQoY29sb3I9InJlZCIpICsgDQogIGxhYnModGl0bGU9IkNvbnN1bW8gZGUgY2FybmUgdnMgUElCIHBlciBjw6FwaXRhIiwgeCA9ICJDb25zdW1vIGRlIGNhcm5lIHBlciBjw6FwaXRhIiwgeT0iUElCIHBlciBjw6FwaXRhIikgKyANCiAgdGhlbWVfYncoKQ0KcDUNCmBgYA0KDQpgYGB7cixmaWcud2lkdGg9NiwgZmlnLmhlaWdodD0yNSx9DQpnZ3Bsb3QobmEub21pdChkYXRhKSwgYWVzKHggPSBNZWF0X2tnXzIwMTcgLCB5ID0gcmVvcmRlcihQYWlzLCBNZWF0X2tnXzIwMTcpKSkgKyANCiAgZ2VvbV9iYXIoc3RhdCA9ICJpZGVudGl0eSIpICsgDQogIGxhYnModGl0bGU9IlBhaXMgdnMgY29uc3VtbyBkZSBjYXJuZSBwZXIgY8OhcGl0YSBhbCBhw7FvIDIwMTciLCB4ID0gIkNvbnN1bW8gZGUgY2FybmUgcGVyIGPDoXBpdGEgYWwgYcOxbyAyMDE3IiwgeT0iUGHDrXMiKSArIA0KICB0aGVtZV9idygpICANCiAgIytjb29yZF9jYXJ0ZXNpYW4oeGxpbSA9IGMoMCwgMTAwKSwgeWxpbSA9IGMoMTAsIDIwKSkNCg0KYGBgDQoNCmBgYHtyLGZpZy53aWR0aD02LCBmaWcuaGVpZ2h0PTQsfQ0KZ2dwbG90KG5hLm9taXQoZGF0YSksIGFlcyh4ID0gUGFpcyAsIHkgPSBNZWF0X2tnXzIwMTcpKSArIA0KICBnZW9tX2JveHBsb3QoKSArIA0KICBsYWJzKHRpdGxlPSJQYWlzIHZzIGNvbnN1bW8gZGUgY2FybmUgcGVyIGPDoXBpdGEgYWwgYcOxbyAyMDE3IiwgeCA9ICJDb25zdW1vIGRlIGNhcm5lIHBlciBjw6FwaXRhIGFsIGHDsW8gMjAxNyIsIHk9IlBhw61zIikgKyANCiAgdGhlbWVfYncoKSAgDQogICMrY29vcmRfY2FydGVzaWFuKHhsaW0gPSBjKDAsIDEwMCksIHlsaW0gPSBjKDEwLCAyMCkpDQoNCmBgYA0KDQoNCg==</div>
 
 
 
