@@ -1,25 +1,7 @@
----
-title: "R Notebook"
-output: html_notebook
----
-
-This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
-
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
-
-```{r}
-plot(cars)
-```
-
-Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
-
-When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
-
-The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
 
 ```{r}
 library(ggplot2)
-library(dplyr)
+  library(dplyr)
 ```
 
 ```{r}
@@ -29,6 +11,16 @@ population <- read.csv("data/population-by-country.csv")
 population_age <- read.csv("data/median-age-country.csv", check.names = FALSE)
 religion_data <- read.csv("data/religion-by-country.csv")
 urban_pop <- read.csv("data/urban-population.csv",sep = ",",check.names = FALSE, encoding ="UTF-8")
+beef_data <- read.csv("data/beef_production.csv",sep = ",",check.names = FALSE, encoding ="UTF-8")
+```
+
+```{r}
+colnames(beef_data)[4] <- "beef_production"
+colnames(beef_data)[1] <- "Pais"
+```
+
+```{r}
+beef_production_2018 <- beef_data %>% filter(Year==2018) %>% select(Pais, beef_production)
 ```
 
 ```{r}
@@ -37,6 +29,7 @@ head(gdp)
 head(population)
 head(population_age)
 head(religion_data)
+head(beef_production_2018)
 ```
 
 ```{r}
@@ -66,6 +59,7 @@ colnames(religion_data)[1] <- "Pais"
 religion_data$christians_100 <- religion_data$chistians/100000
 christians_100 <- religion_data %>% select(Pais, christians_100)
 
+
 #head(meat_pc)
 #head(gdp)
 #head(pop_age)
@@ -75,12 +69,17 @@ christians_100 <- religion_data %>% select(Pais, christians_100)
 
 ```{r}
 data_1 <- merge(pop_age, meat_pc,by = "Pais", all.x = TRUE)
-data_2 <- merge(data_1, urban_2019, by = "Pais", all.x = TRUE)
-data_3 <- merge(data_2, gdp, by = "Pais", all.x = TRUE)
-data <- merge(data_3, religion_data, by = "Pais", all.x = TRUE)
+data_2 <- merge(data_1, beef_production_2018, by = "Pais", all.x = TRUE)
+data_3 <- merge(data_2, urban_2019, by = "Pais", all.x = TRUE)
+data_4 <- merge(data_3, gdp, by = "Pais", all.x = TRUE)
+data <- merge(data_4, religion_data, by = "Pais", all.x = TRUE)
 head(data)
 ```
 
+```{r}
+dataxd <- na.omit(data) %>% select(pop2020.x, MedianAge, Meat_kg_2017,gdpPerCapita)
+cor(dataxd)
+```
 
 EDA:
 ```{r}
