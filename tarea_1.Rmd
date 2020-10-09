@@ -119,9 +119,9 @@ p4 <- data %>% ggplot(aes(x = log(meat_production_tonnes) , y = urb2019, colour 
 p4
 ```
 ```{r}
-p5 <- data %>% ggplot(aes(x = Meat_kg_2017 , y = gdpPerCapita, colour = division_idh)) + 
+p5 <- data %>% ggplot(aes(x = meat_production_per_capita, y = gdpPerCapita, colour = division_idh)) + 
   geom_point() + 
-  labs(title="log producción de carne vs PIB per cápita", x = "log producción de carne", y="PIB per cápita") + 
+  labs(title="Producción de carne per cápita vs PIB per cápita", x = "Producción de carne per cápita", y="PIB per cápita") + 
   theme_bw()
 p5
 ```
