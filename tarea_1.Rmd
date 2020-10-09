@@ -90,55 +90,55 @@ cor(dataxd)
 ```{r}
 library(ggplot2)
 
-p1 <- data %>% ggplot(aes(x = log(meat_production_tonnes) , y = christians_100, colour=division_idh)) + 
+p1 <- data %>% ggplot(aes(x = log(meat_production_tonnes) , y = christians_100, colour = division_idh)) + 
   geom_point(size = 4) + 
   labs(title="log producción de carne vs Cristianos cada 100mil habitantes", x = "log producción de carne", y="Cristianos cada 100mil hab")+ theme_bw()
 p1
 ```
 
 ```{r}
-p2 <- data %>% ggplot(aes(x = log(meat_production_tonnes) , y = log(pop2020) )) + 
-  geom_point(color="red") + 
+p2 <- data %>% ggplot(aes(x = log(meat_production_tonnes) , y = log(pop2020), colour = division_idh)) + 
+  geom_point() + 
   labs(title="log producción de carne vs log(Población)", x = "log Producción de carne[toneladas]", y="log(Población)") + 
   theme_bw()
 p2
 ```
 
 ```{r}
-p3 <- data %>% ggplot(aes(x = log(meat_production_tonnes) , y = MedianAge )) + 
-  geom_point(color="red") + 
+p3 <- data %>% ggplot(aes(x = log(meat_production_tonnes) , y = MedianAge, colour = division_idh )) + 
+  geom_point() + 
   labs(title="log producción de carne vs Edad media población", x = "log producción de carne", y="Edad media población")+ 
   theme_bw()
 p3
 ```
 ```{r}
-p4 <- data %>% ggplot(aes(x = log(meat_production_tonnes) , y = urb2019 )) + 
-  geom_point(color="red") + 
+p4 <- data %>% ggplot(aes(x = log(meat_production_tonnes) , y = urb2019, colour = division_idh)) + 
+  geom_point() + 
   labs(title="log producción de carne vs % Urbanización", x = "log producción de carne", y="% Urbanización") + 
   theme_bw()
 p4
 ```
 ```{r}
-p5 <- data %>% ggplot(aes(x = Meat_kg_2017 , y = gdpPerCapita )) + 
-  geom_point(color="red") + 
+p5 <- data %>% ggplot(aes(x = Meat_kg_2017 , y = gdpPerCapita, colour = division_idh)) + 
+  geom_point() + 
   labs(title="log producción de carne vs PIB per cápita", x = "log producción de carne", y="PIB per cápita") + 
   theme_bw()
 p5
 ```
 
 ```{r,fig.width=6, fig.height=25,}
-ggplot(na.omit(data), aes(x = Meat_kg_2017 , y = reorder(Pais, Meat_kg_2017))) + 
-  geom_bar(stat = "identity") + 
-  labs(title="Pais vs consumo de carne per cápita al año 2017", x = "Consumo de carne per cápita al año 2017", y="País") + 
-  theme_bw()  
+#ggplot(na.omit(data), aes(x = Meat_kg_2017 , y = reorder(Pais, Meat_kg_2017))) + 
+#  geom_bar(stat = "identity") + 
+#  labs(title="Pais vs consumo de carne per cápita al año 2017", x = "Consumo de carne per cápita al año 2017", y="País") + 
+#  theme_bw()  
   #+coord_cartesian(xlim = c(0, 100), ylim = c(10, 20))
 
 ```
 
 ```{r,fig.width=6, fig.height=4,}
-ggplot(na.omit(data), aes(x = meat_produ , y = log(meat_production_tonnes))) + 
+ggplot(data, aes(x = division_idh , y = log(meat_production_tonnes) )) + 
   geom_boxplot() + 
-  labs(title="Pais vs consumo de carne per cápita al año 2017", x = "Consumo de carne per cápita al año 2017", y="País") + 
+  labs(title="Boxplot división IDH", x = "División IDH", y="Producción de carne[toneladas]") + 
   theme_bw()  
   #+coord_cartesian(xlim = c(0, 100), ylim = c(10, 20))
 
