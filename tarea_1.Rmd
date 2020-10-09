@@ -4,6 +4,7 @@ library(ggplot2)
   library(dplyr)
 ```
 
+
 ```{r}
 meat_supply <- read.csv("data/meat-supply-per-person.csv", check.names = FALSE)
 gdp_data <- read.csv("data/gdp-per-person.csv")
@@ -13,7 +14,9 @@ religion_data <- read.csv("data/religion-by-country.csv")
 urban_pop <- read.csv("data/urban-population.csv",sep = ",",check.names = FALSE, encoding ="UTF-8")
 beef_data <- read.csv("data/beef_production.csv",sep = ",",check.names = FALSE, encoding ="UTF-8")
 meat_production_data <- read.csv("data/meat-production-tonnes.csv",sep = ",",check.names = FALSE, encoding ="UTF-8")
+idh_data <- read.csv("data/idh_world.csv",sep = ",",check.names = FALSE, encoding ="UTF-8")
 ```
+
 
 ```{r}
 colnames(beef_data)[4] <- "beef_production"
@@ -54,12 +57,17 @@ colnames(religion_data)[1] <- "Pais"
 religion_data$christians_100 <- religion_data$chistians/100000
 christians_100 <- religion_data %>% select(Pais, christians_100)
 
+#Arreglo del IDH
+colnames(idh_data)[2] <- "Pais"
+#Ordenamos los datos de idh y seleccionamos sólo las columnas que nos aportan información sobre cada país
+idh_data <- idh_data[order(idh_data$`HDI Rank (2018)`),][24:nrow(idh_data),]
+#Filtramos el IDH sólo para el año 2018
+idh <- idh_data %>% select(Pais, "2018")
+idh$`2018` <- as.numeric(as.character(idh_data$`2018`))
+idh <- idh[order(idh$`2018`,decreasing = TRUE),]
+idh$division_idh <- cut(idh$`2018`, breaks=c(0,0.549,0.700, 0.801, 1), labels=c("bajo","medio","alto","muy_alto"))
+colnames(idh)[2] <- "idh_2018"
 
-#head(meat_pc)
-#head(gdp)
-#head(pop_age)
-#head(urban_2019)
-#head(pop)
 ```
 
 ```{r}
@@ -67,9 +75,10 @@ data_1 <- merge(pop_age, meat_supply_per_capita, by = "Pais", all.x = TRUE)
 data_2 <- merge(data_1, meat_production_2018, by = "Pais", all.x = TRUE)
 data_3 <- merge(data_2, urban_2019, by = "Pais", all.x = TRUE)
 data_4 <- merge(data_3, select(gdp,Pais,gdpPerCapita), by = "Pais", all.x = TRUE)
-data <- merge(data_4, select(religion_data,Pais,christians_100), by = "Pais", all.x = TRUE)
+data_5 <- merge(data_4, idh, by = "Pais", all.x = TRUE)
+data <- merge(data_5, select(religion_data,Pais,christians_100), by = "Pais", all.x = TRUE)
 data$meat_production_per_capita <- data$meat_production_tonnes/data$pop2020
-head(data)
+data <- na.omit(data)
 ```
 
 ```{r}
@@ -81,9 +90,8 @@ cor(dataxd)
 ```{r}
 library(ggplot2)
 
-
-p1 <- data %>% ggplot(aes(x = log(meat_production_tonnes) , y = christians_100 )) + 
-  geom_point(color="red") + 
+p1 <- data %>% ggplot(aes(x = log(meat_production_tonnes) , y = christians_100, colour=division_idh)) + 
+  geom_point(size = 4) + 
   labs(title="log producción de carne vs Cristianos cada 100mil habitantes", x = "log producción de carne", y="Cristianos cada 100mil hab")+ theme_bw()
 p1
 ```
@@ -128,7 +136,7 @@ ggplot(na.omit(data), aes(x = Meat_kg_2017 , y = reorder(Pais, Meat_kg_2017))) +
 ```
 
 ```{r,fig.width=6, fig.height=4,}
-ggplot(na.omit(data), aes(x = Pais , y = log(meat_production_tonnes))) + 
+ggplot(na.omit(data), aes(x = meat_produ , y = log(meat_production_tonnes))) + 
   geom_boxplot() + 
   labs(title="Pais vs consumo de carne per cápita al año 2017", x = "Consumo de carne per cápita al año 2017", y="País") + 
   theme_bw()  
