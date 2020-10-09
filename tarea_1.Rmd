@@ -12,37 +12,28 @@ population_age <- read.csv("data/median-age-country.csv", check.names = FALSE)
 religion_data <- read.csv("data/religion-by-country.csv")
 urban_pop <- read.csv("data/urban-population.csv",sep = ",",check.names = FALSE, encoding ="UTF-8")
 beef_data <- read.csv("data/beef_production.csv",sep = ",",check.names = FALSE, encoding ="UTF-8")
-meet_production_data <- read.csv("data/meat-production-tonnes.csv",sep = ",",check.names = FALSE, encoding ="UTF-8")
+meat_production_data <- read.csv("data/meat-production-tonnes.csv",sep = ",",check.names = FALSE, encoding ="UTF-8")
 ```
 
 ```{r}
 colnames(beef_data)[4] <- "beef_production"
 colnames(beef_data)[1] <- "Pais"
-colnames(meet_production_data)[4] <- "meat_production_tonnes"
-colnames(meet_production_data)[1] <- "Pais"
+colnames(meat_production_data)[4] <- "meat_production_tonnes"
+colnames(meat_production_data)[1] <- "Pais"
 ```
 
 ```{r}
 beef_production_2018 <- beef_data %>% filter(Year==2018) %>% select(Pais, beef_production)
-meet_production_2018 <- meet_production_data %>% filter(Year==2018) %>% select(Pais, meat_production_tonnes)
-```
-
-```{r}
-head(meat_supply)
-head(gdp)
-head(population)
-head(population_age)
-head(religion_data)
-head(beef_production_2018)
+meat_production_2018 <- meat_production_data %>% filter(Year==2018) %>% select(Pais, meat_production_tonnes)
 ```
 
 ```{r}
 #Del dataset population seleccionamos sólo la poblacion 2020
 colnames(meat_supply)[4] <- "Meat_kg_yr"
-meat_pc <- meat_supply %>% select(Entity, Year, Meat_kg_yr) %>% filter(Year == 2017)
-meat_pc <- subset(meat_pc, select = -Year)
-colnames(meat_pc)[2] <- "Meat_kg_2017"
-colnames(meat_pc)[1] <- "Pais"
+meat_supply_per_capita <- meat_supply %>% select(Entity, Year, Meat_kg_yr) %>% filter(Year == 2017)
+meat_supply_per_capita <- subset(meat_supply_per_capita, select = -Year)
+colnames(meat_supply_per_capita)[2] <- "Meat_kg_2017"
+colnames(meat_supply_per_capita)[1] <- "Pais"
 
 gdp <- gdp_data %>% select(country, gdpPerCapita, pop)
 colnames(gdp)[1] <- "Pais"
@@ -72,11 +63,12 @@ christians_100 <- religion_data %>% select(Pais, christians_100)
 ```
 
 ```{r}
-data_1 <- merge(pop_age, meat_pc,by = "Pais", all.x = TRUE)
-data_2 <- merge(data_1, meet_production_2018, by = "Pais", all.x = TRUE)
+data_1 <- merge(pop_age, meat_supply_per_capita, by = "Pais", all.x = TRUE)
+data_2 <- merge(data_1, meat_production_2018, by = "Pais", all.x = TRUE)
 data_3 <- merge(data_2, urban_2019, by = "Pais", all.x = TRUE)
-data_4 <- merge(data_3, gdp, by = "Pais", all.x = TRUE)
-data <- merge(data_4, religion_data, by = "Pais", all.x = TRUE)
+data_4 <- merge(data_3, select(gdp,Pais,gdpPerCapita), by = "Pais", all.x = TRUE)
+data <- merge(data_4, select(religion_data,Pais,christians_100), by = "Pais", all.x = TRUE)
+data$meat_production_per_capita <- data$meat_production_tonnes/data$pop2020
 head(data)
 ```
 
@@ -85,21 +77,21 @@ dataxd <- na.omit(data) %>% select(pop2020.x, MedianAge, Meat_kg_2017,gdpPerCapi
 cor(dataxd)
 ```
 
-EDA:
+*EDA:*
 ```{r}
 library(ggplot2)
 
 
 p1 <- data %>% ggplot(aes(x = log(meat_production_tonnes) , y = christians_100 )) + 
   geom_point(color="red") + 
-  labs(title="Consumo de carne vs Cristianos cada 100mil habitantes", x = "Consumo de carne per cápita", y="Cristianos cada 100mil hab")+ theme_bw()
+  labs(title="log producción de carne vs Cristianos cada 100mil habitantes", x = "log producción de carne", y="Cristianos cada 100mil hab")+ theme_bw()
 p1
 ```
 
 ```{r}
-p2 <- data %>% ggplot(aes(x = log(meat_production_tonnes) , y = log(pop2020.x) )) + 
+p2 <- data %>% ggplot(aes(x = log(meat_production_tonnes) , y = log(pop2020) )) + 
   geom_point(color="red") + 
-  labs(title="Producción de carne vs log(Población)", x = "Producción de carne[toneladas]", y="log(Población)") + 
+  labs(title="log producción de carne vs log(Población)", x = "log Producción de carne[toneladas]", y="log(Población)") + 
   theme_bw()
 p2
 ```
@@ -107,21 +99,21 @@ p2
 ```{r}
 p3 <- data %>% ggplot(aes(x = log(meat_production_tonnes) , y = MedianAge )) + 
   geom_point(color="red") + 
-  labs(title="Consumo de carne vs Edad media población", x = "Consumo de carne per cápita", y="Edad media población")+ 
+  labs(title="log producción de carne vs Edad media población", x = "log producción de carne", y="Edad media población")+ 
   theme_bw()
 p3
 ```
 ```{r}
 p4 <- data %>% ggplot(aes(x = log(meat_production_tonnes) , y = urb2019 )) + 
   geom_point(color="red") + 
-  labs(title="Consumo de carne vs % Urbanización", x = "Consumo de carne per cápita", y="% Urbanización") + 
+  labs(title="log producción de carne vs % Urbanización", x = "log producción de carne", y="% Urbanización") + 
   theme_bw()
 p4
 ```
 ```{r}
 p5 <- data %>% ggplot(aes(x = Meat_kg_2017 , y = gdpPerCapita )) + 
   geom_point(color="red") + 
-  labs(title="Consumo de carne vs PIB per cápita", x = "Consumo de carne per cápita", y="PIB per cápita") + 
+  labs(title="log producción de carne vs PIB per cápita", x = "log producción de carne", y="PIB per cápita") + 
   theme_bw()
 p5
 ```
