@@ -1,7 +1,7 @@
 
 ```{r}
 library(ggplot2)
-  library(dplyr)
+library(dplyr)
 ```
 
 
@@ -82,7 +82,7 @@ data <- na.omit(data)
 ```
 
 ```{r}
-dataxd <- na.omit(data) %>% select(pop2020.x, MedianAge, Meat_kg_2017,gdpPerCapita)
+dataxd <- na.omit(data) %>% select(pop2020, MedianAge, Meat_kg_2017,gdpPerCapita)
 cor(dataxd)
 ```
 
@@ -91,7 +91,7 @@ cor(dataxd)
 library(ggplot2)
 
 p1 <- data %>% ggplot(aes(x = log(meat_production_tonnes) , y = christians_100, colour = division_idh)) + 
-  geom_point(size = 4) + 
+  geom_point(size = 2) + 
   labs(title="log producción de carne vs Cristianos cada 100mil habitantes", x = "log producción de carne", y="Cristianos cada 100mil hab")+ theme_bw()
 p1
 ```
