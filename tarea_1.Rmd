@@ -47,8 +47,8 @@ pop_age <- population_age %>% select(Pais, pop2020, MedianAge)
 pop <- population %>% select(name,pop2020)
 colnames(pop)[1] <- "Pais"
 colnames(urban_pop)[1] <- "Pais"
-urban_2019 <- urban_pop %>% select(Pais,"2019")
-colnames(urban_2019)[2] <- "urb2019"
+urban_2018 <- urban_pop %>% select(Pais,"2018")
+colnames(urban_2018)[2] <- "urb2018"
 
 colnames(religion_data)[1] <- "Pais"
 
@@ -73,11 +73,12 @@ colnames(idh)[2] <- "idh_2018"
 ```{r}
 data_1 <- merge(pop_age, meat_supply_per_capita, by = "Pais", all.x = TRUE)
 data_2 <- merge(data_1, meat_production_2018, by = "Pais", all.x = TRUE)
-data_3 <- merge(data_2, urban_2019, by = "Pais", all.x = TRUE)
+data_3 <- merge(data_2, urban_2018, by = "Pais", all.x = TRUE)
 data_4 <- merge(data_3, select(gdp,Pais,gdpPerCapita), by = "Pais", all.x = TRUE)
 data_5 <- merge(data_4, idh, by = "Pais", all.x = TRUE)
-data <- merge(data_5, select(religion_data,Pais,christians_100), by = "Pais", all.x = TRUE)
+data <- merge(data_5, select(religion_data,Pais,christians_100,unaffiliated), by = "Pais", all.x = TRUE)
 data$meat_production_per_capita <- data$meat_production_tonnes/data$pop2020
+data$unaffiliated_100 <- data$unaffiliated/100000
 data <- na.omit(data)
 ```
 
@@ -94,6 +95,12 @@ p1 <- data %>% ggplot(aes(x = log(meat_production_tonnes) , y = christians_100, 
   geom_point(size = 2) + 
   labs(title="log producción de carne vs Cristianos cada 100mil habitantes", x = "log producción de carne", y="Cristianos cada 100mil hab")+ theme_bw()
 p1
+```
+```{r}
+data %>% ggplot(aes(x = log(meat_production_tonnes) , y = log(unaffiliated), colour = division_idh)) + 
+  geom_point(size = 2) + 
+  labs(title="log producción de carne vs log de no afiliados", x = "log producción de carne", y="log de no afiliados")+ theme_bw()
+
 ```
 
 ```{r}
@@ -112,16 +119,16 @@ p3 <- data %>% ggplot(aes(x = log(meat_production_tonnes) , y = MedianAge, colou
 p3
 ```
 ```{r}
-p4 <- data %>% ggplot(aes(x = log(meat_production_tonnes) , y = urb2019, colour = division_idh)) + 
+p4 <- data %>% ggplot(aes(x = log(meat_production_tonnes) , y = urb2018, colour = division_idh)) + 
   geom_point() + 
   labs(title="log producción de carne vs % Urbanización", x = "log producción de carne", y="% Urbanización") + 
   theme_bw()
 p4
 ```
 ```{r}
-p5 <- data %>% ggplot(aes(x = meat_production_per_capita, y = gdpPerCapita, colour = division_idh)) + 
+p5 <- data %>% ggplot(aes(x = log(meat_production_per_capita), y = gdpPerCapita, colour = division_idh)) + 
   geom_point() + 
-  labs(title="Producción de carne per cápita vs PIB per cápita", x = "Producción de carne per cápita", y="PIB per cápita") + 
+  labs(title="log Producción de carne per cápita vs PIB per cápita", x = "Producción de carne per cápita", y="PIB per cápita") + 
   theme_bw()
 p5
 ```
