@@ -184,6 +184,10 @@ g6 <- data %>% ggplot(aes(x = log(meat_production_per_capita), y = gdpPerCapita,
 g6
 ggsave(plot = g6, dpi = 300, width = 10, height = 6, filename = "meat_production_per_capita_vs_PIB.pdf")
 ```
+```{r}
+#data %>% ggplot(aes(x = division_idh, y = log(Meat_kg_2017))) + geom_boxplot() + theme_bw()
+data %>% ggplot(aes(x = p_mayor, y = log(Meat_kg_2017))) + geom_boxplot() + theme_bw()
+```
 
 ```{r,fig.width=6, fig.height=25,}
 #ggplot(na.omit(data), aes(x = Meat_kg_2017 , y = reorder(Pais, Meat_kg_2017))) + 
