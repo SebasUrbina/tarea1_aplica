@@ -54,10 +54,11 @@ colnames(religion_data)[1] <- "Pais"
 
 #Christians by 100.000 habitants
 
-religion_data$christians_100 <- religion_data$chistians/religion_data$pop2020*100000
+religion_data$christians_100 <- (religion_data$chistians/religion_data$pop2020)*100000
 christians_100 <- religion_data %>% select(Pais, christians_100)
-religion_data$unaffiliated_100 <- religion_data$unaffiliated/religion_data$pop2020*100000
-
+religion_data$unaffiliated_100 <- (religion_data$unaffiliated/religion_data$pop2020)*100000
+religion_data$hindus_100 <- (religion_data$hindus/religion_data$pop2020)*100000
+religion_data$buddhists_100 <- (religion_data$buddhists/religion_data$pop2020)*100000
 #Arreglo del IDH
 colnames(idh_data)[2] <- "Pais"
 #Ordenamos los datos de idh y seleccionamos sólo las columnas que nos aportan información sobre cada país
@@ -77,7 +78,7 @@ data_2 <- merge(data_1, meat_production_2018, by = "Pais", all.x = TRUE)
 data_3 <- merge(data_2, urban_2018, by = "Pais", all.x = TRUE)
 data_4 <- merge(data_3, select(gdp,Pais,gdpPerCapita), by = "Pais", all.x = TRUE)
 data_5 <- merge(data_4, idh, by = "Pais", all.x = TRUE)
-data <- merge(data_5, select(religion_data,Pais,christians_100,unaffiliated_100), by = "Pais", all.x = TRUE)
+data <- merge(data_5, select(religion_data,Pais,christians_100,unaffiliated_100,hindus_100,buddhists_100), by = "Pais", all.x = TRUE)
 #data$meat_production_per_capita <- data$meat_production_tonnes/data$pop2020
 #data$unaffiliated_100 <- data$unaffiliated/data$pop2020*100000
 data <- na.omit(data)
@@ -105,6 +106,20 @@ data %>% ggplot(aes(x = log(meat_production_tonnes) , y = unaffiliated_100, colo
 ```
 
 ```{r}
+data %>% ggplot(aes(x = log(meat_production_tonnes) , y = log(buddhists_100), colour = division_idh)) + 
+  geom_point(size = 2) + 
+  labs(title="log producción de carne vs log tasa de budistas c/100khab", x = "log producción de carne", y="Tasa de budistas")+ theme_bw()
+
+```
+
+```{r}
+data %>% ggplot(aes(x = log(meat_production_tonnes) , y = log(hindus_100), colour = division_idh)) + 
+  geom_point(size = 2) + 
+  labs(title="log producción de carne vs log tasa de hindus cada 100mil hab.", x = "log producción de carne", y="log Tasa de budistas cada 100mil hab.")+ theme_bw()
+
+```
+
+```{r}
 p2 <- data %>% ggplot(aes(x = log(meat_production_tonnes) , y = log(pop2020), colour = division_idh)) + 
   geom_point() + 
   labs(title="log producción de carne vs log(Población)", x = "log Producción de carne[toneladas]", y="log(Población)") + 
@@ -122,7 +137,7 @@ p3
 ```{r}
 p4 <- data %>% ggplot(aes(x = log(meat_production_tonnes) , y = urb2018, colour = division_idh)) + 
   geom_point() + 
-  labs(title="log producción de carne vs % Urbanización", x = "log producción de carne", y="% Urbanización") + 
+  labs(title="log Producción de carne vs % Urbanización", x = "log producción de carne", y="% Urbanización") + 
   theme_bw()
 p4
 ```
