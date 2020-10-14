@@ -1,5 +1,5 @@
 
-```{r}
+```{r, warning=FALSE}
 library(ggplot2)
 library(dplyr)
 ```
@@ -87,63 +87,67 @@ data$hindus_100 <- (data$hindus/data$pop2020)*100000
 
 
 *EDA:*
-```{r}
-library(ggplot2)
 
-p1 <- data %>% ggplot(aes(y = log(meat_production_tonnes) , x = chistians_100, colour = division_idh)) + 
-  geom_point(size = 2) + 
-  labs(title="log producción de carne vs Cristianos cada 100mil habitantes", y = "log producción de carne", x="Tasa de Cristianos cada 100mil hab")+ theme_bw()
-p1
-```
 ```{r}
-data %>% ggplot(aes(y = log(meat_production_tonnes) , x = unaffiliated_100, colour = division_idh)) + 
-  geom_point(size = 2) + 
-  labs(title="log producción de carne vs  no afiliados", y = "log producción de carne", x="Tasa de No afiliados")+ theme_bw()
+g3 <- data %>% ggplot(aes(y = log(meat_production_tonnes) , x = log(hindus_100), colour = division_idh)) + 
+  geom_point(size = 5) + 
+  labs(title="log Producción de carne vs log Hindús cada 100.000 habitantes", y = "log producción de carne", x="log Hindues cada 100.000 hab.")+ theme_bw()
+
+ggsave(plot = g3, dpi = 300,width = 10, height = 6, filename = "meat_production_vs_hindus_100_idh.pdf")
 ```
 
+```{r}
+
+g0 <- data %>% ggplot(aes(y = log(meat_production_tonnes) , x = log(hindus_100))) + 
+  geom_point(size = 4, color="red") + 
+  labs(title="log Producción de carne vs log Hindús cada 100.000 habitantes", y = "log producción de carne", x="log Hindues cada 100.000 hab.")+ theme_bw() + scale_colour_manual(values=c("black","red"))
+g0
+ggsave(plot = g0, dpi = 300,width = 10, height = 6, filename = "meat_production_vs_hindus_100.pdf")
+
+```
 
 ```{r}
 data$p_hindues <- (data$hindus/data$pop2020)*100
-data$p_mayor <- ifelse(data$p_hindues>10.0,">10% Hindú","<10% Hindú")
+data$Proporción <- ifelse(data$p_hindues>10.0,">10% Hindú","<10% Hindú")
 ```
 
 ```{r}
-g1 <- data %>% filter(p_hindues>10.0) %>% ggplot(aes(x=Pais,y=log(meat_production_tonnes))) + geom_bar(stat="identity",fill="brown") + coord_flip() + theme_bw() + labs(title="Paises que tienen mas un 5% de población Hindú")
+g1 <- data %>% filter(p_hindues>10.0) %>% ggplot(aes(x=Pais,y=log(meat_production_tonnes))) + geom_bar(stat="identity",fill="brown") + coord_flip() + theme_bw() + labs(title="Paises que tienen mas un 10% de población Hindú")
 g1
 ggsave(plot = g1, width = 10, height = 10, dpi = 300, filename = "pais_vs_hindus_100.pdf")
 ```
 
 ```{r}
-g2 <- data %>% ggplot(aes(y = log(meat_production_tonnes) , x = log(hindus_100), colour = p_mayor)) + 
-  geom_point(size = 2) + 
+g2 <- data %>% ggplot(aes(y = log(meat_production_tonnes) , x = log(hindus_100), colour = Proporción)) + 
+  geom_point(size = 4) + 
   labs(title="log Producción de carne vs log Hindús cada 100.000 habitantes", y = "log producción de carne", x="log Hindues cada 100.000 hab.")+ theme_bw() + scale_colour_manual(values=c("black","red"))
 g2
-ggsave(plot = g2, dpi = 300,width = 10, height = 6, filename = "meat_production_vs_hindus_100.pdf")
+ggsave(plot = g2, dpi = 300,width = 10, height = 6, filename = "meat_production_vs_hindus_100_p.pdf")
 ```
 ```{r}
-g3 <- data %>% ggplot(aes(y = log(meat_production_tonnes) , x = log(Meat_kg_2017), colour = p_mayor)) + 
-  geom_point(size = 2) + 
+g4 <- data %>% ggplot(aes(y = log(meat_production_tonnes) , x = log(Meat_kg_2017), colour = Proporción)) + 
+  geom_point(size = 5) + 
   labs(title="log Producción de carne vs log Consumo de carne per cápita", y = "log producción de carne", x="log Consumo de carne per cápita")+ theme_bw() + scale_colour_manual(values=c("black","red"))+
    geom_text(aes(label=ifelse(p_hindues>=10.0,as.character(Pais),'')),hjust=-0.2, vjust=0.5)
-g3
-ggsave(plot = g3, dpi = 300, width = 10, height = 6, filename = "meat_production_vs_meat_consumo.pdf")
+g4
+ggsave(plot = g4, dpi = 300, width = 10, height = 6, filename = "meat_production_vs_meat_consumo_per_capita.pdf")
 ```
 
 ```{r}
-g4 <- data %>% ggplot(aes(y = log(meat_production_tonnes) , x = log(hindus_100), colour = p_mayor)) + 
-  geom_point(size = 2) + 
+g5 <- data %>% ggplot(aes(y = log(meat_production_tonnes) , x = log(hindus_100), colour = Proporción)) + 
+  geom_point(size = 4) + 
   labs(title="log Producción de carne vs log Hindús cada 100.000 habitantes", y = "log producción de carne", x="log Hindues cada 100.000 hab.")+ theme_bw() + scale_colour_manual(values=c("black","red"))
-
-ggsave(plot = g4, dpi = 300, width = 10, height = 6, filename = "meat_vs_hindus.pdf")
+g5
+ggsave(plot = g5, dpi = 300, width = 10, height = 6, filename = "meat_vs_hindus.pdf")
 ```
 
 ```{r}
-g5 <- data %>% ggplot(aes(y = log(meat_production_tonnes) , x = gdpPerCapita, colour = p_mayor)) + 
+g6 <- data %>% ggplot(aes(y = log(meat_production_tonnes) , x = gdpPerCapita, colour = Proporción)) + 
   geom_point(size = 2) + 
   labs(title="log Producción de carne vs PIB per cápita", y = "log producción de carne", x="PIB per cápita")+ theme_bw() + scale_colour_manual(values=c("black","red"))+
    geom_text(aes(label=ifelse(p_hindues>=10.0,as.character(Pais),'')),hjust=-0.5, vjust=0.5)
-g5
-ggsave(plot = g5, dpi = 300, width = 10, height = 6, filename = "meat_production_vs_PIB.pdf")
+g6
+ggsave(plot = g6, dpi = 300, width = 10, height = 6, filename = "meat_production_vs_PIB.pdf")
 ```
 
 ```{r}
@@ -154,39 +158,42 @@ data %>% ggplot(aes(y = log(meat_production_tonnes) , x = log(hindus_100), colou
 ```
 
 ```{r}
-p2 <- data %>% ggplot(aes(x = log(meat_production_tonnes) , y = log(pop2020), colour = division_idh)) + 
-  geom_point() + 
-  labs(title="log producción de carne vs log(Población)", x = "log Producción de carne[toneladas]", y="log(Población)") + 
-  theme_bw()
-p2
+g7 <- data %>% ggplot(aes(y = log(meat_production_tonnes) , x = log(pop2020), colour = Proporción)) + 
+  geom_point(size=4) + 
+  labs(title="log Producción de carne vs log Población", y = "log Producción de carne[toneladas]", x="log Población") + 
+  theme_bw() +
+  scale_color_manual(values=c("black","red"))
+g7
+ggsave(plot = g7, dpi = 300, width = 10, height = 6, filename = "meat_production_vs_pob_p.pdf")
 ```
 
 ```{r}
 p3 <- data %>% ggplot(aes(x = log(meat_production_tonnes) , y = MedianAge, colour = division_idh )) + 
-  geom_point() + 
+  geom_point(size=4) + 
   labs(title="log producción de carne vs Edad media población", x = "log producción de carne", y="Edad media población")+ 
   theme_bw()
 p3
 ```
 ```{r}
-p4 <- data %>% ggplot(aes(x = log(meat_production_tonnes) , y = urb2018, colour = division_idh)) + 
-  geom_point() + 
+p4 <- data %>% ggplot(aes(x = log(meat_production_tonnes) , y = urb2018, colour = Proporción)) + 
+  geom_point(size=4) + 
   labs(title="log Producción de carne vs % Urbanización", x = "log producción de carne", y="% Urbanización") + 
   theme_bw()
 p4
 ```
 ```{r}
 data$meat_production_per_capita <- data$meat_production_tonnes/data$pop2020
-g6 <- data %>% ggplot(aes(x = log(meat_production_per_capita), y = gdpPerCapita, colour = division_idh)) + 
-  geom_point() + 
-  labs(title="log Producción de carne per cápita vs PIB per cápita", x = "Producción de carne per cápita", y="PIB per cápita") + 
-  theme_bw()
+g6 <- data %>% ggplot(aes(x = log(meat_production_per_capita), y = log(gdpPerCapita), colour = Proporción)) + 
+  geom_point(size=4) + 
+  labs(title="log Producción de carne per cápita vs log PIB per cápita", x = "log Producción de carne per cápita", y="log PIB per cápita") + 
+  theme_bw() +
+  scale_color_manual(values=c("black","red"))
 g6
 ggsave(plot = g6, dpi = 300, width = 10, height = 6, filename = "meat_production_per_capita_vs_PIB.pdf")
 ```
 ```{r}
 #data %>% ggplot(aes(x = division_idh, y = log(Meat_kg_2017))) + geom_boxplot() + theme_bw()
-data %>% ggplot(aes(x = p_mayor, y = log(Meat_kg_2017))) + geom_boxplot() + theme_bw()
+data %>% ggplot(aes(x = Proporción, y = log(Meat_kg_2017))) + geom_boxplot() + theme_bw()
 ```
 
 ```{r,fig.width=6, fig.height=25,}
@@ -199,7 +206,7 @@ data %>% ggplot(aes(x = p_mayor, y = log(Meat_kg_2017))) + geom_boxplot() + them
 ```
 
 ```{r,fig.width=6, fig.height=4,}
-ggplot(data, aes(x = division_idh , y = log(meat_production_tonnes) )) + 
+ggplot(data, aes(x = Proporción , y = log(meat_production_tonnes) )) + 
   geom_boxplot() + 
   labs(title="Boxplot división IDH", x = "División IDH", y="Producción de carne[toneladas]") + 
   theme_bw()  
@@ -207,4 +214,27 @@ ggplot(data, aes(x = division_idh , y = log(meat_production_tonnes) )) +
 
 ```
 
+```{r}
+str(data)
+```
+
+```{r}
+library(corrplot)
+correlacion <- cor(data[,c(2,3,4,5,6,7,8,15)])
+round(correlacion, digits = 2)
+corrplot(correlacion, method = "shade", shade.col = NA, tl.col = "black", tl.srt = 70, addCoef.col = "black")
+```
+
+*REGRESIONES*
+```{r}
+library(stargazer)
+model_1 <- lm(log(meat_production_tonnes)~log(hindus_100) ,data=data)
+model_2 <- lm(log(meat_production_tonnes)~log(hindus_100)+Proporción ,data=data)
+model_3 <- lm(log(meat_production_tonnes)~log(hindus_100)+Proporción+idh_2018 ,data=data)
+model_4 <- lm(log(meat_production_tonnes)~log(hindus_100)+Proporción+idh_2018+idh_2018*Proporción,data=data)
+#model_4 <- lm(log(meat_production_tonnes)~log(hindus_100)+Proporción+log(gdpPerCapita) ,data=data)
+stargazer(model_1,model_2,model_3,model_4, type="latex", align = TRUE, dep.var.labels = c("log(Producción de carne anual)"),covariate.labels=c("log(Hindúes100)","PHindú>10","IDH","IDH*PHindú>10"),no.space=TRUE, omit.stat = c("f","ser"), title="Modelos", out="modelo_gpd.htm")
+#summary(model_2)
+#stargazer(attitude)
+```
 
